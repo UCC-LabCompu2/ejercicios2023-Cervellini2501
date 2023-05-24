@@ -1,0 +1,22 @@
+body{
+    text-align: center;
+    font-family: 'Gugi', cursive;
+    background: linear-gradient(to right, #1a39c0, #95a4f1);
+}
+div{
+    border: 2px dashed #162f57;
+    margin: 10px;
+    padding: 5px 30px;
+    border-radius: 15px;
+    box-shadow: 10px 12px #093c96;
+
+}
+#principal{
+    width: 50px;
+    float: left;
+    border-radius: 50%;
+}
+div.especial h3{
+    font-family: 'Wix Madefor Text', sans-serif;
+    text-shadow: 10px 5px #999;
+}
