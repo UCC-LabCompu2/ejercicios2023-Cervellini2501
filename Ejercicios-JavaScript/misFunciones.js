@@ -103,3 +103,21 @@ function calcularDiv(){
   document.getElementsByName("div_total")[0].innerHTML=numd1/numd2;
 
 }
+
+function cargarWeb(){
+  var cant, unidad, urlComp;
+  cant= document.getElementById("distancia").value;
+  unidad=document.getElementsByName("unidades")[0].value;
+  urlComp= "segundaWeb.html#" + cant + "#" + unidad;
+  window.open(urlComp);
+}
+
+function cargarResultado(){
+  var urlComp, can, un;
+
+  urlComp= window.location.href.split("/")[5];
+  can= urlComp.split("#")[1];
+  un= urlComp.split("#")[2];
+
+  document.getElementById("dist").value=can + " " + un;
+}
