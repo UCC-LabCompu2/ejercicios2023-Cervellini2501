@@ -25,7 +25,7 @@ function cambiarUnidades(id,valor){
     pulgada=39.3701*valor;
     pie=3.28084*valor;
     yarda=1.09361*valor;
-  }else if(id=="pulgada"){
+  }else if(id == "pulgada"){
     pulgada=valor;
     metro=0.0254*valor;
     pie=0.0833333*valor;
@@ -64,7 +64,7 @@ function convertirGR(id){
 }
 
 function mostrar_ocultar(valorMO){
-  if(valorMO=="val_mostrar"){
+  if(valorMO == "val_mostrar"){
     document.getElementById("divMO").style.display='block';
 
   }else if(valorMO=="val_ocultar"){
@@ -242,7 +242,25 @@ function dibujarImagen(posX, posY){
   img.onload= function (){
     ctx.drawImage(img, posX,posY);
   }
+}
 
+x=0;
+dx= 2;
+function animarAuto(){
+  var canvas= document.getElementById("myCanvas");
+  var ctx= canvas.getContext("2d");
 
+  var img = new Image();
+  img.src = "images/auto.png";
 
+  canvas.width= canvas.width;
+
+  img.onload= function (){
+    ctx.drawImage(img, x, 100);
+  }
+  if (x>canvas.width){
+    x=0;
+
+  }
+  x+=dx;
 }
