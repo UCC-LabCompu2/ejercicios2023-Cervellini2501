@@ -64,24 +64,41 @@
     for(c=0; c<columnas;c++){
       matrizLadrillo[c]=[];
       for(f=0;f<filas;f++){
-        matrizLadrillo[c][f]={x:0,y:0};
+        matrizLadrillo[c][f]={x:0,y:0, status: 1};
       }
     }
 
     function dibujarLadrillos(){
       for(c=0; c<columnas;c++){
         for(f=0;f<filas;f++){
-          matrizLadrillo[c][f].x=0;
-          matrizLadrillo[c][f].y=0;
-          ctx.beginPath();
-          var ladrilloX = (c*(ladrillo.ancho+espaciado))+espacioIzq;
-          var ladrilloY= (f*(ladrillo.alto+espaciado))+espacioSup;
-          ctx.fillRect(ladrilloX,ladrilloY,ladrillo.ancho,ladrillo.alto);
-          ctx.fill();
-          ctx.closePath();
+          if(matrizLadrillo[c][f].status == 1){
+            matrizLadrillo[c][f].x=0;
+            matrizLadrillo[c][f].y=0;
+            ctx.beginPath();
+            var ladrilloX = (c*(ladrillo.ancho+espaciado))+espacioIzq;
+            var ladrilloY= (f*(ladrillo.alto+espaciado))+espacioSup;
+            ctx.fillRect(ladrilloX,ladrilloY,ladrillo.ancho,ladrillo.alto);
+            ctx.fill();
+            ctx.closePath();
+
+          }
         }
       }
     }
+
+    function detectarColision(){
+      for(c=0; c<columnas;c++){
+        for(f=0;f<filas;f++){
+          var b= matrizLadrillo[c][f];
+          if(x>b.x && x<b.x+ladrillo.ancho && y>b.y+ladrillo.alto){
+            dy=-dy;
+            b.status=0;
+          }
+
+        }
+      }
+    }
+
 
 
     var derPresionado= false;
