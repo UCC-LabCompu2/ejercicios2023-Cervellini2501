@@ -2,9 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Pong</title>
+  <style>
+    {padding: 0;margin: 0}
+    canvas{background: #d9e7ee; display: block; margin: 0 auto;}
+  </style>
+
 </head>
 <body>
-$END$
+<canvas id="pongCanvas" width="480" height="320">
+
+</canvas>
+
+<script>
+  var canvas = document.getElementById("pongCanvas");
+  var ctx= canvas.getContext("2d");
+
+  var x = canvas.width/2;
+  var y= canvas.height-10;
+  var dx=2;
+  var dy=-2;
+
+  var pelota= {
+    radio: 10,
+    dibujar: function (){
+      ctx.beginPath();
+      ctx.arc(x, y, this.radio, 0, 2*Math.PI);
+      ctx.fillStyle = "blue";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+  };
+
+    var barra= {
+      ancho: 75,
+      alto: 10,
+      posX: (canvas.width-75)/2,
+      dibujar: function (){
+        ctx.beginPath();
+        ctx.fillRect(this.posX, 310, this.ancho, this.alto);
+        ctx.fillStyle="#0096DD";
+        ctx.fill();
+        ctx.closePath();
+
+      }
+    }
+
+    var derPresionado= false;
+    var izqPresionado=false;
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+
+    function keyDownHandler (e){
+      if(e.keyCode === 39){
+        derPresionado=true;
+      }else if(e.keyCode===37){
+        izqPresionado=true;
+      }
+    }
+
+  function keyUpHandler (e){
+    if(e.keyCode === 39){
+      derPresionado=false;
+    }else if(e.keyCode===37){
+      izqPresionado=false;
+    }
+  }
+
+  function dibujar(){
+    canvas.width=canvas.width;
+
+    //rebotar izquierda  y derecha
+    if(x+dx<pelota.radio  || x+dx>canvas.width-pelota.radio){
+      dx=-dx;
+    }
+    //rebotar arriba y abajo
+    if(y+dy<pelota.radio  ||  y+dy>canvas.height-pelota.radio){
+      dy=-dy;
+    }
+
+    //moverse derecha o izquierda
+    if(derPresionado && barra.posX<canvas.width-barra.ancho){
+      barra.posX+=7;
+    }else if(izqPresionado && barra.posX>0){
+      barra.posX-=7;
+    }
+
+    pelota.dibujar();
+    barra.dibujar();
+    x+=dx;
+    y+=dy;
+  }
+  setInterval(dibujar, 10);
+
+</script>
+
 </body>
 </html>
