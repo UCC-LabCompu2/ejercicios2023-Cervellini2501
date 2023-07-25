@@ -49,6 +49,41 @@
       }
     }
 
+    var ladrillo= {
+      alto:20,
+      ancho:75,
+    };
+
+    var filas=3;
+    var columnas=5;
+    var espaciado=10;
+    var espacioSup=30;
+    var espacioIzq=30;
+
+    var matrizLadrillo = [];
+    for(c=0; c<columnas;c++){
+      matrizLadrillo[c]=[];
+      for(f=0;f<filas;f++){
+        matrizLadrillo[c][f]={x:0,y:0};
+      }
+    }
+
+    function dibujarLadrillos(){
+      for(c=0; c<columnas;c++){
+        for(f=0;f<filas;f++){
+          matrizLadrillo[c][f].x=0;
+          matrizLadrillo[c][f].y=0;
+          ctx.beginPath();
+          var ladrilloX = (c*(ladrillo.ancho+espaciado))+espacioIzq;
+          var ladrilloY= (f*(ladrillo.alto+espaciado))+espacioSup;
+          ctx.fillRect(ladrilloX,ladrilloY,ladrillo.ancho,ladrillo.alto);
+          ctx.fill();
+          ctx.closePath();
+        }
+      }
+    }
+
+
     var derPresionado= false;
     var izqPresionado=false;
 
@@ -79,10 +114,17 @@
       dx=-dx;
     }
     //rebotar arriba y abajo
-    if(y+dy<pelota.radio  ||  y+dy>canvas.height-pelota.radio){
+    if(y+dy<pelota.radio){
       dy=-dy;
     }
+    if (y+dy>canvas.height-pelota.radio){
+      if(x>barra.posX && x<barra.ancho+barra.posX){
+        dy=-dy;
+      }else {
+        alert("GAME OVER");
+      }
 
+    }
     //moverse derecha o izquierda
     if(derPresionado && barra.posX<canvas.width-barra.ancho){
       barra.posX+=7;
@@ -92,6 +134,7 @@
 
     pelota.dibujar();
     barra.dibujar();
+    dibujarLadrillos();
     x+=dx;
     y+=dy;
   }
